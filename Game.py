@@ -23,6 +23,8 @@ def ball_movement():
             score += 1  # Increase player score
             ball_speed_y *= -1  # Reverse ball's vertical direction
             # TODO Task 3: Increase the ball's speed by x
+            ball_speed_y *= 1.15
+            ball_speed_x *= 1.15
 
     # Ball collision with top boundary
     if ball.top <= 0:
