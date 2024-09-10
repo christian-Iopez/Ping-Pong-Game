@@ -71,6 +71,9 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Pong')  # Set window title
 
 # Colors
+bright_green = (170, 255, 0)
+blue = (0, 0, 255)
+purple = (106, 13, 173)
 light_grey = (200, 200, 200)
 red = (255, 0, 0)
 bg_color = pygame.Color('grey12')
