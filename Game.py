@@ -78,6 +78,10 @@ light_grey = (200, 200, 200)
 red = (255, 0, 0)
 bg_color = pygame.Color('grey12')
 
+# Color options
+colors = [red, bright_green, blue, purple, light_grey, red]  # list of colors
+current_color_index = 0
+
 # Game Rectangles (ball and player paddle)
 ball = pygame.Rect(screen_width / 2 - 15, screen_height / 2 - 15, 30, 30)  # Ball (centered)
 player = pygame.Rect(screen_width/2 - 45, screen_height - 20, 100, 15)  # Player paddle
@@ -109,6 +113,8 @@ while True:
                 player_speed += 6  # Move paddle right
             if event.key == pygame.K_SPACE:
                 start = True  # Start the ball movement
+            if event.key == pygame.K_0:  # This will check if 0 is being pressed.
+                current_color_index = (current_color_index + 1) % len(colors) #Cycles the list
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT:
                 player_speed += 6  # Stop moving left
@@ -123,7 +129,7 @@ while True:
     screen.fill(bg_color)  # Clear screen with background color
     pygame.draw.rect(screen, light_grey, player)  # Draw player paddle
     # TODO Task 1: Change color of the ball
-    pygame.draw.ellipse(screen, red, ball)  # Draw ball
+    pygame.draw.ellipse(screen, colors[current_color_index], ball)  # Draw ball, and use the current color
     player_text = basic_font.render(f'{score}', False, light_grey)  # Render player score
     screen.blit(player_text, (screen_width/2 - 15, 10))  # Display score on screen
 
