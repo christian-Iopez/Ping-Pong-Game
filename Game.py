@@ -80,7 +80,7 @@ bg_color = pygame.Color('grey12')
 
 # Color options
 colors = [red, bright_green, blue, purple, light_grey, red]  # list of colors
-current_color_index = 0
+current_color_index = 1
 
 #Shape
 def rect_shape(screen, color, rect):
@@ -89,7 +89,10 @@ def ellipse_shape(screen, color, rect):
     pygame.draw.ellipse(screen, color, rect)
 
 shapes = [rect_shape,ellipse_shape] # List of shapes
-current_shape_index = 1
+current_shape_index = 0
+
+#Pause
+pause = False # Sets variable foe pause
 
 # Game Rectangles (ball and player paddle)
 ball = pygame.Rect(screen_width / 2 - 15, screen_height / 2 - 15, 30, 30)  # Ball (centered)
@@ -126,15 +129,16 @@ while True:
                 current_color_index = (current_color_index + 1) % len(colors) #Cycles the list
             if event.key == pygame.K_1:  # Check if 1 is pressed.
                 current_shape_index = (current_shape_index + 1) % len(shapes) #Cycles the list of shapes
+            if event.key == pygame.K_p:  # Checks if P is pressed
+                pause = not pause #If P is pressed Pause becomes True
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT:
                 player_speed += 6  # Stop moving left
             if event.key == pygame.K_RIGHT:
                 player_speed -= 6  # Stop moving right
-
-    # Game Logic
-    ball_movement()
-    player_movement()
+    if not pause:
+        ball_movement() # calls movement logic
+        player_movement() # ^
 
     # Visuals
     screen.fill(bg_color)  # Clear screen with background color
