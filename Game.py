@@ -82,6 +82,15 @@ bg_color = pygame.Color('grey12')
 colors = [red, bright_green, blue, purple, light_grey, red]  # list of colors
 current_color_index = 0
 
+#Shape
+def rect_shape(screen, color, rect):
+    pygame.draw.rect(screen, color, rect)
+def ellipse_shape(screen, color, rect):
+    pygame.draw.ellipse(screen, color, rect)
+
+shapes = [rect_shape,ellipse_shape] # List of shapes
+current_shape_index = 1
+
 # Game Rectangles (ball and player paddle)
 ball = pygame.Rect(screen_width / 2 - 15, screen_height / 2 - 15, 30, 30)  # Ball (centered)
 player = pygame.Rect(screen_width/2 - 45, screen_height - 20, 100, 15)  # Player paddle
@@ -115,6 +124,8 @@ while True:
                 start = True  # Start the ball movement
             if event.key == pygame.K_0:  # This will check if 0 is being pressed.
                 current_color_index = (current_color_index + 1) % len(colors) #Cycles the list
+            if event.key == pygame.K_1:  # Check if 1 is pressed.
+                current_shape_index = (current_shape_index + 1) % len(shapes) #Cycles the list of shapes
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT:
                 player_speed += 6  # Stop moving left
@@ -129,7 +140,7 @@ while True:
     screen.fill(bg_color)  # Clear screen with background color
     pygame.draw.rect(screen, light_grey, player)  # Draw player paddle
     # TODO Task 1: Change color of the ball
-    pygame.draw.ellipse(screen, colors[current_color_index], ball)  # Draw ball, and use the current color
+    shapes[current_shape_index](screen, colors[current_color_index], ball)  # Draw ball, and use the current color and shape
     player_text = basic_font.render(f'{score}', False, light_grey)  # Render player score
     screen.blit(player_text, (screen_width/2 - 15, 10))  # Display score on screen
 
